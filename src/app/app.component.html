@@ -1,0 +1,7 @@
+<form [formGroup]="chipForm">
+    <cb-chip formControlName="chips" [options]="options" (onQuery)="onQuery($event)" [threshold]="3" [template]="myTemplate"></cb-chip>
+    <ng-template #myTemplate let-item="item">
+        <strong>{{item}}</strong>
+    </ng-template>
+</form>
+<button (click)="log()">Log</button>
