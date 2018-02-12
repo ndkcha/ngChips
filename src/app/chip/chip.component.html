@@ -1,6 +1,6 @@
 <div class="chip-container">
     <div class="chip" *ngFor="let chip of chips, let i = index">
-        {{chip}}
+        <ng-template [ngTemplateOutlet]="template || defaultTemplate" [ngOutletContext]="{item: chip}"></ng-template>
         <span class="closebtn" (click)="deleteChip(i)">&times;</span>
     </div>
     <input class="query" type="text" #query (keyup)="onQueryTriggered(query.value)" placeholder="Search here...">

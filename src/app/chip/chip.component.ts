@@ -12,12 +12,14 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
     }]
 })
 export class ChipComponent implements ControlValueAccessor {
-    onChange = (_: string[]) => {};
-    @Input() _chips: string[] = [];
+    onChange = (_: any[]) => {};
+    @Input() _chips: any[] = [];
     @Output() onQuery: EventEmitter<string> = new EventEmitter();
-    @Input() options: string[];
+    @Input() options: any[];
     @Input() threshold: number = 2;
     @Input() template: TemplateRef<any>;
+    @Output() onAdd: EventEmitter<any> = new EventEmitter();
+    @Output() onRemove: EventEmitter<any> = new EventEmitter();
     private timeout = undefined;
 
     get chips() {
@@ -29,7 +31,7 @@ export class ChipComponent implements ControlValueAccessor {
         this.onChange(this._chips);
     }
 
-    writeValue(value: string[]) {
+    writeValue(value: any[]) {
         if (value !== undefined)
             this.chips = value;
     }
@@ -41,6 +43,7 @@ export class ChipComponent implements ControlValueAccessor {
     registerOnTouched() { };
 
     deleteChip(index: number): void {
+        this.onRemove.emit(this.chips[index]);
         this.chips.splice(index, 1);
     }
 
@@ -60,7 +63,9 @@ export class ChipComponent implements ControlValueAccessor {
 
     addItem(index: number, box: HTMLInputElement): void {
         box.value = null;
-        this.chips.push(this.options[index]);
+        let option: any = this.options[index];
+        this.chips.push(option);
+        this.onAdd.emit(option);
         this.options = [];
     }
 }
