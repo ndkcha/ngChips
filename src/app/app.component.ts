@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
 	chipForm: FormGroup = this.fb.group({
 		chips: []
 	});
-	options: string[] = [];
+	options: any[] = [];
 	// chips: string[] = ["One", "Two"];
 
 	log() {
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
 	onQuery(query: string): void {
 		console.log("onQuery called", query);
+		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Four", last: "Last" }];
 	}
 
 	constructor(private fb: FormBuilder) { }
