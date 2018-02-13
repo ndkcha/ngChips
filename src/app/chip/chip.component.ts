@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, Output, EventEmitter, TemplateRef } from "@angular/core";
+import { Component, forwardRef, Input, Output, EventEmitter, TemplateRef, KeyValueDiffers, OnInit, KeyValueDiffer, KeyValueChanges, DoCheck } from "@angular/core";
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 @Component({
@@ -11,7 +11,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
         multi: true
     }]
 })
-export class ChipComponent implements ControlValueAccessor {
+export class ChipComponent implements ControlValueAccessor, OnInit, DoCheck {
     onChange = (_: any[]) => {};
     @Input() _chips: any[] = [];
     @Output() onQuery: EventEmitter<string> = new EventEmitter();
@@ -20,7 +20,33 @@ export class ChipComponent implements ControlValueAccessor {
     @Input() template: TemplateRef<any>;
     @Output() onAdd: EventEmitter<any> = new EventEmitter();
     @Output() onRemove: EventEmitter<any> = new EventEmitter();
+    private optionsDiffer: KeyValueDiffer<any, any>;
     private timeout = undefined;
+
+    constructor(private differs: KeyValueDiffers) { }
+
+    ngOnInit() {
+        this.optionsDiffer = this.differs.find(this.options).create();
+    }
+
+    private optionChanged(changes: KeyValueChanges<any, any>) {
+        let chips = this.chips;
+        this.options = this.options.filter(filterOptions);
+
+        function filterOptions(obj: any) {
+            for (let i = 0; i < chips.length; i++) {
+                if (JSON.stringify(chips[i]) == JSON.stringify(obj))
+                    return false;
+            }
+            return true;
+        }
+    }
+
+    ngDoCheck() {
+        const optChanges = this.optionsDiffer.diff(this.options);
+        if (optChanges)
+            this.optionChanged(optChanges);
+    }
 
     get chips() {
         return this._chips;
@@ -54,10 +80,8 @@ export class ChipComponent implements ControlValueAccessor {
             this.timeout = undefined;
         }
         this.timeout = window.setTimeout(() => {
-            if (query.length > this.threshold) {
-                this.options = [];
+            if (query.length > this.threshold)
                 this.onQuery.emit(query);
-            }
         }, 1000);
     }
 
