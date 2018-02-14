@@ -3,7 +3,7 @@
         <ng-template [ngTemplateOutlet]="template || defaultTemplate" [ngOutletContext]="{item: chip}"></ng-template>
         <span class="closebtn" (click)="deleteChip(i)">&times;</span>
     </div>
-    <input class="query" type="text" #query (keyup)="onQueryTriggered(query.value)" placeholder="Search here...">
+    <input class="query" type="text" #query (keyup)="onQueryTriggered(query.value)" [placeholder]="placeholder">
     <div class="options-box">
     <div *ngFor="let item of options, let i = index" class="option" (click)="addItem(i, query)">
         <ng-template [ngTemplateOutlet]="template || defaultTemplate" [ngOutletContext]="{item: item}"></ng-template>

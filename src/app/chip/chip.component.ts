@@ -34,6 +34,7 @@
  * onQuery($event): void {
  *      this.options = <an array>;
  * }
+ * @author ndkcha
  */
 
 // import helper
@@ -71,6 +72,8 @@ export class ChipComponent implements ControlValueAccessor, OnInit, DoCheck {
     private optionsDiffer: KeyValueDiffer<any, any>;
     /** Timeout handler to determine wheather the user has finished typing */
     private timeout = undefined;
+    /** Placeholder for search box */
+    @Input() placeholder: string = "Search here";
 
     /**
      * @param differs A repository of different Map diffing strategies used by NgClass, NgStyle, and others.
