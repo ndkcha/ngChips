@@ -20,12 +20,13 @@ export class AppComponent implements OnInit {
 
 	onQuery(query: string): void {
 		console.log("onQuery called", query);
-		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Four", last: "Last" }];
+		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Anakin", last: "Skywalker" }];
 	}
 
 	constructor(private fb: FormBuilder) { }
 
 	ngOnInit() {
-		this.chipForm.controls["chips"].setValue([{ name: "Anand", last: "Kacha" }, { name: "Jayraj", last: "Solanki" }])
+		this.chipForm.controls["chips"].setValue([{ name: "Luke", last: "Skywalker" }])
+		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Obi wan", last: "Kanobi" }];
 	}
 }

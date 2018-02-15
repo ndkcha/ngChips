@@ -1,10 +1,11 @@
 .chip-container {
-    // padding: 4px 16px;
+    min-height: 20px;
     border: 1px solid #BDBDBD;
     resize: both;
     border-radius: 6px;
     overflow: auto;
     transition: all 500ms ease;
+    position: relative;
 
     .chip {
         margin: 8px;
@@ -30,31 +31,51 @@
         }
     }
 
+    .drop-icon {
+        position: absolute;
+        top: 8px;
+        color: #888;
+        font-weight: bold;
+        right: 8px;
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 16px;
+        box-shadow: 1px 1px 3px #E0E0E0;
+        background: #F1F1F1;
+        transition: all 300ms ease;
+
+        &:hover {
+            color: #000;
+        }
+    }
+
     .query {
         outline: none;
         border: none;
         font-size: 11pt;
     }
 
-    .options-box {
-        position: absolute;
-        max-height: 10em;
-        overflow: scroll;
-        width: fit-content;
-        border-radius: 4px;
-        box-shadow: 1px 1px 3px rgba(30, 30, 30, 0.3);
-        transition: all 400ms ease;
-        
-        .option {
-            font-size: 11pt;
-            padding: 10px 16px;
-            background: #FAFAFA;
-            border-bottom: 1px solid #E0E0E0;
-            cursor: pointer;
+    
+}
 
-            &:hover {
-                background: #F5F5F5;
-            }
+.options-box {
+    position: absolute;
+    max-height: 10em;
+    overflow: scroll;
+    width: fit-content;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px rgba(30, 30, 30, 0.3);
+    transition: all 400ms ease;
+    
+    .option {
+        font-size: 11pt;
+        padding: 10px 16px;
+        background: #FAFAFA;
+        border-bottom: 1px solid #E0E0E0;
+        cursor: pointer;
+
+        &:hover {
+            background: #F5F5F5;
         }
     }
 }

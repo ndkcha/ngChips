@@ -74,6 +74,10 @@ export class MultiChipsComponent implements ControlValueAccessor, OnInit, DoChec
     private timeout = undefined;
     /** Placeholder for search box */
     @Input() placeholder: string = "Search here";
+    /** Visibility handler for the options box */
+    isOptions: boolean = false;
+    /** Visibility control text */
+    visibilityOptionControl: string = "&#8910;";
 
     /**
      * @param differs A repository of different Map diffing strategies used by NgClass, NgStyle, and others.
@@ -155,15 +159,25 @@ export class MultiChipsComponent implements ControlValueAccessor, OnInit, DoChec
      */
     onQueryTriggered(query: string): void {
         // wipe out existing suggestions before starting.
-        this.options = [];
+        this.isOptions = false;
         if (this.timeout) {
             window.clearTimeout(this.timeout);
             this.timeout = undefined;
         }
         this.timeout = window.setTimeout(() => {
-            if (query.length > this.threshold)
+            if (query.length > this.threshold) {
                 this.onQuery.emit(query);
+                this.isOptions = true;
+            }
         }, 1000);
+    }
+
+    /**
+     * Subroutine to manually open the option box.
+     */
+    toggleOptions(): void {
+        this.isOptions = !this.isOptions;
+        this.visibilityOptionControl = this.isOptions ? "&#8911;" : "&#8910;";
     }
 
     /**
