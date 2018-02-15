@@ -3,25 +3,25 @@
  * @author ndkcha
  */
 
-import { ChipComponent } from "./chip.component";
+import { MultiChipsComponent } from "./multi-chip.component";
 import { ComponentFixture, TestBed, async, tick, fakeAsync, flushMicrotasks } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { By } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Subscription";
 
-let compInst: ChipComponent;
-let fixture: ComponentFixture<ChipComponent>;
+let compInst: MultiChipsComponent;
+let fixture: ComponentFixture<MultiChipsComponent>;
 
 describe('ChipComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            declarations: [ChipComponent]
+            declarations: [MultiChipsComponent]
         }).compileComponents();
     }));
 
     beforeEach(async(() => {
-        fixture = TestBed.createComponent(ChipComponent);
+        fixture = TestBed.createComponent(MultiChipsComponent);
         compInst = fixture.componentInstance;
 
         compInst.chips = [];

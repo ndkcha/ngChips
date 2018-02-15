@@ -42,17 +42,17 @@ import { Component, forwardRef, Input, Output, EventEmitter, TemplateRef, KeyVal
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 @Component({
-    selector: 'cob-chip',
-    templateUrl: './chip.component.html',
-    styleUrls: ['./chip.component.scss'],
+    selector: 'cob-multi-chips',
+    templateUrl: './multi-chip.component.html',
+    styleUrls: ['./multi-chip.component.scss'],
     providers: [{
         provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => ChipComponent),
+        useExisting: forwardRef(() => MultiChipsComponent),
         multi: true
     }]
 })
 /** The UI component for Chips Elements. */
-export class ChipComponent implements ControlValueAccessor, OnInit, DoCheck {
+export class MultiChipsComponent implements ControlValueAccessor, OnInit, DoCheck {
     onChange = (_: any[]) => {};
     /** The chips that are selected or pre loaded */
     @Input() _chips: any[] = [];

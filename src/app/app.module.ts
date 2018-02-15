@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { ChipComponent } from './chip/chip.component';
+import { MultiChipsComponent } from './multi-chip/multi-chip.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChipComponent
+    MultiChipsComponent
   ],
   imports: [
     BrowserModule,

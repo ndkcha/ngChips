@@ -1,5 +1,5 @@
 <form [formGroup]="chipForm">
-    <cob-chip formControlName="chips" [placeholder]="placeholder" [options]="options" (onQuery)="onQuery($event)" [threshold]="3" [template]="myTemplate"></cob-chip>
+    <cob-multi-chips formControlName="chips" [placeholder]="placeholder" [options]="options" (onQuery)="onQuery($event)" [threshold]="3" [template]="myTemplate"></cob-multi-chips>
     <ng-template #myTemplate let-item="item">
         {{item.name}} {{item.last}}
     </ng-template>
