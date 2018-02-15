@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
 		chips: []
 	});
 	options: any[] = [];
+	placeholder: string = "Search here";
 	// chips: string[] = ["One", "Two"];
 
 	log() {
