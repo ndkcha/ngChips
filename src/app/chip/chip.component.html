@@ -1,0 +1,17 @@
+<div class="chip-container">
+    <div class="chip" *ngIf="isChip">
+        <ng-template [ngTemplateOutlet]="template || defaultTemplate" [ngOutletContext]="{item: chip}"></ng-template>
+        <span class="closebtn" (click)="deleteChip()">&times;</span>
+    </div>
+    <input class="query" type="text" #query (keyup)="onQueryTriggered(query.value)" [placeholder]="placeholder">
+    <span class="drop-icon" (click)="toggleOptions()" [innerHTML]="visibilityOptionControl"></span>
+</div>
+
+<div class="options-box" *ngIf="isOptions">
+    <div *ngFor="let item of options, let i = index" class="option" (click)="addItem(i, query)">
+        <ng-template [ngTemplateOutlet]="template || defaultTemplate" [ngOutletContext]="{item: item}"></ng-template>
+    </div>
+</div>
+<ng-template #defaultTemplate let-item="item">
+    {{item}}
+</ng-template>

@@ -8,7 +8,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
 	chipForm: FormGroup = this.fb.group({
-		chips: []
+		chips: [],
+		chip: undefined
 	});
 	options: any[] = [];
 	placeholder: string = "Search here";
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.chipForm.controls["chips"].setValue([{ name: "Luke", last: "Skywalker" }])
+		this.chipForm.controls["chip"].setValue({ name: "Anand", last: "Kacha" });
 		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Obi wan", last: "Kanobi" }];
 	}
 }
