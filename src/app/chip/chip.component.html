@@ -7,7 +7,7 @@
     <span class="drop-icon" (click)="toggleOptions()" [innerHTML]="visibilityOptionControl"></span>
 </div>
 
-<div class="options-box" *ngIf="isOptions">
+<div class="options-box" *ngIf="isOptions" infiniteScroller [scrollPercent]="scrollPercent" [scrollCallback]="scrollCallback">
     <div *ngFor="let item of options, let i = index" class="option" (click)="addItem(i, query)">
         <ng-template [ngTemplateOutlet]="template || defaultTemplate" [ngOutletContext]="{item: item}"></ng-template>
     </div>

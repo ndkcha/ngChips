@@ -13,22 +13,39 @@ export class AppComponent implements OnInit {
 	});
 	options: any[] = [];
 	placeholder: string = "Search here";
-	// chips: string[] = ["One", "Two"];
+	private optionsOriginal: any[] = [];
 
 	log() {
 		console.log(this.chipForm.value);
 	}
 
 	onQuery(query: string): void {
-		console.log("onQuery called", query);
-		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Anakin", last: "Skywalker" }];
+		let self = this;
+		this.options = this.optionsOriginal.filter(filterFn);
+		console.log("onQuery called", query, this.options);
+
+		function filterFn(obj: string) {
+			if (obj.toLowerCase().indexOf(query.toLowerCase()) >= 0)
+				return true;
+		}
+	}
+
+	onScroll(): void {
+		this.optionsOriginal.push("Tony Stark")
+		this.optionsOriginal.push("Robb Stark")
+		this.optionsOriginal.push("Eddard Stark")
+		this.optionsOriginal.push("Bruce Bannar")
+		this.optionsOriginal.push("Luke Cage")
+		this.options = Object.assign([], this.optionsOriginal);
+		console.log("onScroll", this.options);
 	}
 
 	constructor(private fb: FormBuilder) { }
 
 	ngOnInit() {
-		this.chipForm.controls["chips"].setValue([{ name: "Luke", last: "Skywalker" }])
-		this.chipForm.controls["chip"].setValue({ name: "Anand", last: "Kacha" });
-		this.options = [{ name: "Anand", last: "Kacha" }, { name: "Obi wan", last: "Kanobi" }];
+		this.optionsOriginal = ["Anand Kacha", "Luke Skywalker", "Anakin Skywalker", "Obi wan kanobi", "Han Solo", "Leia Skywalker", "Bruce Wayne", "Rohit Mehra", "Ra One"]
+		this.options = Object.assign([], this.optionsOriginal);
+		this.chipForm.controls["chip"].setValue(this.optionsOriginal[0]);
+		this.chipForm.controls["chips"].setValue([this.optionsOriginal[0]]);
 	}
 }

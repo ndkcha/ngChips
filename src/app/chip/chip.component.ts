@@ -5,12 +5,14 @@
  * 
  * Parameters:
  * [options] = Suggestions to add new chips. The chips passed as an array in this parameter can be added later upon the user selection.
- * [threshold] = Threshold for displaying the suggestion box and triggering the onQuery event.
+ * [threshold] = Threshold for displaying the suggestion box and triggering the onQuery event. (Default: 2)
  * [template] = Custom template to assign to chips as well as the suggestion box.
- * [placeholder] = Custom text to display inside the searchbox as a placeholder.
+ * [placeholder] = Custom text to display inside the searchbox as a placeholder. (Default: "Search here")
+ * [scrollPercent] = The percentage the user should scroll the box for onScroll to be called. (Default: 80)
  * (onQuery) = Triggers an event whenever the user finishes typing on the search box (passes the query as an argument).
  * (onAdd) = Triggers an event whenever a chip is added (passes the chip as an argument).
  * (onRemove) = Triggers an event whenever a chip is deleted (passes the chip as an argument).
+ * (onScroll) = Triggers an event whenever user has scrolled down to the bottom.
  * 
  * Usages:
  * 
@@ -34,6 +36,17 @@
  * 
  * component file:
  * onQuery($event): void {
+ *      this.options = <an array>;
+ * }
+ * 
+ *  - you can also implement the infinite scroller for the chips component
+ * <cob-chip formControlName="chip" scrollPercent="90" (onScroll)="onScroll()" [options]="<an array, changed by a function>" (onQuery)="onQuery($event)" [threshold]="2"></cob-chip>
+ * 
+ * component file:
+ * onQuery($event): void {
+ *      this.options = <an array>;
+ * }
+ * onScroll(): void {
  *      this.options = <an array>;
  * }
  * @author ndkcha
@@ -82,15 +95,28 @@ export class ChipComponent implements ControlValueAccessor, OnInit, DoCheck {
     visibilityOptionControl: string = "&#8910;";
     /** Visibility handler for the chip */
     isChip: boolean = false;
+    /** Triggers an event whenever user has scrolled down to the bottom */
+    @Output() onScroll: EventEmitter<boolean> = new EventEmitter();
+    /** Callback function that notifies the parent component. And also binds to the current context */
+    scrollCallback: any;
+    /** The percentage the user should scroll the box for onScroll to be called */
+    @Input() scrollPercent: number = 80;
 
     /**
      * @param differs A repository of different Map diffing strategies used by NgClass, NgStyle, and others.
      */
-    constructor(private differs: KeyValueDiffers) { }
+    constructor(private differs: KeyValueDiffers) {
+        this.scrollCallback = this.onScrollTrigger.bind(this);
+    }
 
     ngOnInit() {
         // bind the watcher for the options parameter
         this.optionsDiffer = this.differs.find(this.options).create();
+    }
+
+    /** Notifies the parent component about the user being at the bottom of the scroll box. */
+    onScrollTrigger() {
+        this.onScroll.emit(true);
     }
 
     /**
