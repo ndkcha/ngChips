@@ -1,11 +1,13 @@
 /**
- * The UI component for Chips Elements.
+ * The UI component for Multi Chips Elements.
  * It supports the RectiveForms and ngModel as well. You can search for new chips and add to list. You can also assign custom template to the inputs.
+ * It selects multiple chips at a time. Check out chip for the component that can select only single chip.
  * 
  * Parameters:
  * [options] = Suggestions to add new chips. The chips passed as an array in this parameter can be added later upon the user selection.
  * [threshold] = Threshold for displaying the suggestion box and triggering the onQuery event.
  * [template] = Custom template to assign to chips as well as the suggestion box.
+ * [placeholder] = Custom text to display inside the searchbox as a placeholder.
  * (onQuery) = Triggers an event whenever the user finishes typing on the search box (passes the query as an argument).
  * (onAdd) = Triggers an event whenever a chip is added (passes the chip as an argument).
  * (onRemove) = Triggers an event whenever a chip is deleted (passes the chip as an argument).
@@ -14,21 +16,21 @@
  * 
  *  - with only chips
  * <form [formGroup]="myForm">
- *      <cob-chips formControlName="chips">
+ *      <cob-multi-chips formControlName="chips"></cob-multi-chips>
  * </form>
- * <cob-chips [(ngModel)]="chips">
+ * <cob-multi-chips [(ngModel)]="chips"></cob-multi-chips>
  * 
  *  - with custom template
- * <cob-chips formControlName="chips" [template]="myTemplate"></cob-chips>
+ * <cob-multi-chips formControlName="chips" [template]="myTemplate"></cob-multi-chips>
  * <ng-template #myTemplate let-item="item">
  *      {{item.name}}
  * </ng-template>
  * 
  *  - with drop down options [with this options feature, you can search for new chips with dynamic data and a threshold for popping out the suggestions box]
- * <cob-chips formControlName="chips" [options]="<an array>" [threshold]="3"></cob-chips>
+ * <cob-multi-chips formControlName="chips" [options]="<an array>" [threshold]="3"></cob-multi-chips>
  * 
  *  - you can also load the dynamic data as you search into the box. (don't worry, it will wait for user to finish typing before the callback)
- * <cob-chips formControlName="chips" [options]="<an array, changed by a function>" (onQuery)="onQuery($event)" [threshold]="2"></cob-chips>
+ * <cob-multi-chips formControlName="chips" [options]="<an array, changed by a function>" (onQuery)="onQuery($event)" [threshold]="2"></cob-multi-chips>
  * 
  * component file:
  * onQuery($event): void {
