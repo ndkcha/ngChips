@@ -193,6 +193,6 @@ export class MultiChipsComponent implements ControlValueAccessor, OnInit, DoChec
         let option: any = this.options[index];
         this.chips.push(option);
         this.onAdd.emit(option);
-        this.options = [];
+        this.isOptions = false;
     }
 }

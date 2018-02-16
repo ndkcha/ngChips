@@ -12,7 +12,7 @@ import { Subscription } from "rxjs/Subscription";
 let compInst: MultiChipsComponent;
 let fixture: ComponentFixture<MultiChipsComponent>;
 
-describe('ChipComponent', () => {
+describe('MultiChipsComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
@@ -63,7 +63,7 @@ describe('ChipComponent', () => {
         
         compInst.addItem(0, input);
 
-        expect(compInst.options.length).toBe(0, "options.length");
+        expect(compInst.isOptions).toBeFalsy("options");
         expect(compInst.chips.length).toBe(1, "chips.length");
 
         let onA: Subscription = compInst.onAdd.subscribe((item: string): void => {
